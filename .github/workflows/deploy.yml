@@ -38,6 +38,5 @@ jobs:
             sudo git clone https://github.com/${{ github.repository }}.git /opt/ai-app --depth 1
             cd /opt/ai-app
             sudo ansible-galaxy collection install community.docker
-            echo "git_repo_url=https://github.com/${{ github.repository }}.git" | sudo tee /opt/ai-app/ansible/extra.vars
-            sudo ansible-playbook -i "localhost," -e @/opt/ai-app/ansible/extra.vars /opt/ai-app/ansible/playbook.yml
+            sudo ansible-playbook -i "localhost," -e "git_repo_url=https://github.com/${{ github.repository }}.git" /opt/ai-app/ansible/playbook.yml
 
