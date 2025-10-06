@@ -44,8 +44,10 @@
         dest: "{{ repo_dir }}"
         version: main
 
-    - name: Compose up
-      community.docker.docker_compose_v2:
-        project_src: "{{ repo_dir }}"
-        state: present
+    - name: Start application with Docker Compose
+      shell: |
+        cd {{ repo_dir }}
+        docker compose up -d
+      args:
+        chdir: "{{ repo_dir }}"
 
