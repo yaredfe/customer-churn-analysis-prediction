@@ -33,6 +33,11 @@ data "aws_subnets" "default" {
   }
 }
 
+resource "aws_key_pair" "deployer" {
+  key_name   = var.key_name
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6H/MWSmBYrw/oAi5VNgOuGxnDamufgfjVQ75jXBxKIN9g7dOltPSaDhL9U+wRqnf4kclvVR9WSU8siYi4M83f2SJ0weGrLwpnbfmt2IhAFARStcFrqN6XVAYTJrfhKzsBHapqYeClgi/aU40xgG7qYADVlwLOiGg6jR6LjDY2fgn4TuNFa4jJQM+ZPTn3Nxy4m8gytxhgG2Ip5tP3Emk+++kO29+2/OLfVvwhl2EKuXQrLcPQyDoGkh081wm9imQUU146O0I2xqevkMwXEQKrSdWyrRxwL6CxCFw6Kmbwz4jzVO2fl1MjLMggZPFk0v7AwHpEhVcZNDyg8zaHGiDd"
+}
+
 resource "aws_security_group" "ai_app_sg" {
   name        = "ai-app-sg"
   description = "Allow SSH and HTTP"
@@ -68,7 +73,7 @@ resource "aws_instance" "vm" {
   subnet_id                   = element(data.aws_subnets.default.ids, 1)
   vpc_security_group_ids      = [aws_security_group.ai_app_sg.id]
   associate_public_ip_address = true
-  # key_name                    = var.key_name  # Will add manually later
+  key_name                    = var.key_name
 
   root_block_device {
     volume_size = 30
