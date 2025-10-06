@@ -1,0 +1,59 @@
+{
+  "best_model": "logistic_regression",
+  "best_roc_auc": 0.8410912190963341,
+  "all_models": {
+    "logistic_regression": {
+      "best_params": {
+        "model__C": 10.0,
+        "model__max_iter": 1000,
+        "model__penalty": "l2",
+        "model__solver": "lbfgs"
+      },
+      "roc_auc": 0.8410912190963341,
+      "accuracy": 0.8055358410220014,
+      "precision": 0.6572327044025157,
+      "recall": 0.5588235294117647,
+      "f1": 0.6040462427745664
+    },
+    "random_forest": {
+      "best_params": {
+        "model__max_depth": 10,
+        "model__min_samples_split": 5,
+        "model__n_estimators": 500
+      },
+      "roc_auc": 0.8400139502441293,
+      "accuracy": 0.8026969481902059,
+      "precision": 0.6666666666666666,
+      "recall": 0.5133689839572193,
+      "f1": 0.5800604229607251
+    },
+    "xgboost": {
+      "best_params": {
+        "model__colsample_bytree": 0.8,
+        "model__learning_rate": 0.1,
+        "model__max_depth": 3,
+        "model__n_estimators": 300,
+        "model__subsample": 0.8
+      },
+      "roc_auc": 0.8387338861763414,
+      "accuracy": 0.801277501774308,
+      "precision": 0.6546052631578947,
+      "recall": 0.5320855614973262,
+      "f1": 0.5870206489675516
+    },
+    "lightgbm": {
+      "best_params": {
+        "model__colsample_bytree": 0.8,
+        "model__learning_rate": 0.1,
+        "model__max_depth": -1,
+        "model__n_estimators": 300,
+        "model__subsample": 0.8
+      },
+      "roc_auc": 0.8233240331705804,
+      "accuracy": 0.7913413768630234,
+      "precision": 0.6190476190476191,
+      "recall": 0.5561497326203209,
+      "f1": 0.5859154929577465
+    }
+  }
+}

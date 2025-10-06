@@ -1,0 +1,6 @@
+region       = "us-east-1"
+instance_name = "ai-app-vm"
+instance_type = "t3.micro"
+key_name      = "your-ec2-keypair-name"
+
+
