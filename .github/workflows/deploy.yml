@@ -35,7 +35,7 @@ jobs:
             sudo apt-get update -y
             sudo apt-get install -y ansible git
             if [ -d /opt/ai-app ]; then sudo rm -rf /opt/ai-app; fi
-            sudo git clone https://github.com/${{ github.repository }}.git /opt/ai-app
+            sudo git clone https://github.com/${{ github.repository }}.git /opt/ai-app --depth 1
             cd /opt/ai-app
             sudo ansible-galaxy collection install community.docker
             echo "git_repo_url=https://github.com/${{ github.repository }}.git" | sudo tee /opt/ai-app/ansible/extra.vars
