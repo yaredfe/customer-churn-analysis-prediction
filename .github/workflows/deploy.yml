@@ -22,8 +22,8 @@ jobs:
         run: |
           docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/churn-api:latest -f Dockerfile.api .
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/churn-api:latest
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest -f Dockerfile.frontend .
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/frontend:latest
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/churn-frontend:latest -f Dockerfile.frontend .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/churn-frontend:latest
 
       - name: Deploy via SSH + Ansible
         uses: appleboy/ssh-action@v1.0.3
@@ -40,5 +40,5 @@ jobs:
             if [ -d /opt/ai-app ]; then sudo rm -rf /opt/ai-app; fi
             sudo git clone https://github.com/${{ github.repository }}.git /opt/ai-app --depth 1
             cd /opt/ai-app
-            sudo ansible-playbook -i "localhost," -e "git_repo_url=https://github.com/${{ github.repository }}.git" /opt/ai-app/ansible/playbook.yml --connection=local
+            sudo ansible-playbook -i "localhost," -e "git_repo_url=https://github.com/${{ github.repository }}.git" -e "dockerhub_username=${{ secrets.DOCKERHUB_USERNAME }}" -e "dockerhub_token=${{ secrets.DOCKERHUB_TOKEN }}" /opt/ai-app/ansible/playbook.yml --connection=local
 
