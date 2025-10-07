@@ -1,8 +1,6 @@
 services:
   api_1:
-    build:
-      context: .
-      dockerfile: Dockerfile.api
+    image: yaredfe/churn-api:latest
     environment:
       - PYTHONUNBUFFERED=1
     expose:
@@ -10,9 +8,7 @@ services:
     restart: unless-stopped
 
   api_2:
-    build:
-      context: .
-      dockerfile: Dockerfile.api
+    image: yaredfe/churn-api:latest
     environment:
       - PYTHONUNBUFFERED=1
     expose:
@@ -20,9 +16,7 @@ services:
     restart: unless-stopped
 
   api_3:
-    build:
-      context: .
-      dockerfile: Dockerfile.api
+    image: yaredfe/churn-api:latest
     environment:
       - PYTHONUNBUFFERED=1
     expose:
@@ -30,9 +24,7 @@ services:
     restart: unless-stopped
 
   frontend_1:
-    build:
-      context: .
-      dockerfile: Dockerfile.frontend
+    image: yaredfe/churn-frontend:latest
     environment:
       - API_URL=http://api_1:8000
     expose:
@@ -44,9 +36,7 @@ services:
     restart: unless-stopped
 
   frontend_2:
-    build:
-      context: .
-      dockerfile: Dockerfile.frontend
+    image: yaredfe/churn-frontend:latest
     environment:
       - API_URL=http://api_1:8000
     expose:
