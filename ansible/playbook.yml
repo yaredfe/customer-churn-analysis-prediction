@@ -42,14 +42,29 @@
       shell: |
         echo "{{ dockerhub_token }}" | docker login --username "{{ dockerhub_username }}" --password-stdin
       register: docker_login_result
-      ignore_errors: yes
 
-    - name: Pull Docker images
+    - name: Verify Docker login
+      shell: docker info
+      register: docker_info
+      failed_when: docker_login_result.rc != 0
+
+    - name: Pull Docker images with retry
       shell: |
         cd {{ repo_dir }}
-        docker compose pull
+        docker compose pull --ignore-pull-failures
       args:
         chdir: "{{ repo_dir }}"
+      retries: 3
+      delay: 10
+      register: pull_result
+
+    - name: Build images locally if pull fails
+      shell: |
+        cd {{ repo_dir }}
+        docker compose build
+      args:
+        chdir: "{{ repo_dir }}"
+      when: pull_result.rc != 0
 
     - name: Start application with Docker Compose
       shell: |
